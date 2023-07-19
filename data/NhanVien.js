@@ -9,13 +9,13 @@ function NhanVien() {
     this.gioLam = "";
 
 
-    // phương thưc
+    // phương thức
 
     this.tinhLuong = function () {
         var tongLuong = 0;
         if (this.chucvu == "Giám đốc") {
             tongLuong = this.luongCB * 3;
-        } else if (this.chucVu === 'Trưởng phòng') {
+        } else if (this.chucvu === 'Trưởng phòng') {
             tongLuong = this.luongCB * 2;
         } else if (this.chucvu == "Nhân viên") {
             tongLuong = this.luongCB;
@@ -25,16 +25,15 @@ function NhanVien() {
 
     this.xepLoaiNhanVien = function () {
         var xepLoai = "";
-        if (gioLam >= 192) {
-            "Nhân viên xuất sắc"
-        } else if (gioLam >= 176) {
-            "Nhân viên giỏi"
-        } else if (gioLam >= 160) {
-            "Nhân viên khá"
-        } else if (gioLam < 160) {
-            "Nhân viên trung bình"
+        if (this.gioLam >= 192) {
+            xepLoai = "Nhân viên xuất sắc";
+        } else if (this.gioLam >= 176) {
+            xepLoai = "Nhân viên giỏi";
+        } else if (this.gioLam >= 160) {
+            xepLoai = "Nhân viên khá";
+        } else if (this.gioLam < 160) {
+            xepLoai = "Nhân viên trung bình";
         }
-
+        return xepLoai;
     }
-
 }
