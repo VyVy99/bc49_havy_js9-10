@@ -1,4 +1,4 @@
-document.getElementById('btnThem').onclick = function () { 
+
 var arrIdInput = [
     "tknv", "name", "email", "password", "datepicker", "luongCB", "chucvu", "gioLam",
 ];
@@ -28,10 +28,8 @@ function themNhanVien(event) {
     hienThiDanhSachNhanVien()
 
     // đóg form thêm mới 
-
-
-
 }
+document.getElementById('btnThemNV').onclick = themNhanVien
 
 function hienThiDanhSachNhanVien(arrNhanVien) {
     var content = "";
@@ -39,15 +37,14 @@ function hienThiDanhSachNhanVien(arrNhanVien) {
         var nv = arrNhanVien[i];
         content += `
             <tr>
-                <td>${nhanVien.tknhanVien}</td>
+                <td>${nhanVien.tknv}</td>
                 <td>${nhanVien.name}</td>
                 <td>${nhanVien.email}</td>
-                <td>${nhanVien.password}</td>
                 <td>${nhanVien.datepicker}</td>
-                <td>${nhanVien.luongCB}</td>
+
                 <td>${nhanVien.chucvu}</td>
                 <td>${nhanVien.tinhLuong()}</td>
-                <td>${nhanVien.gioLam}</td>
+
                 <td>${nhanVien.xepLoaiNhanVien()}</td>
                 <td>
                     <button class="btn btn-danger" onclick="xoaNhanVien('${nhanVien.tknv}')">Xóa</button>
@@ -59,6 +56,38 @@ function hienThiDanhSachNhanVien(arrNhanVien) {
     document.getElementById("tableDanhSach").innerHTML = content;
 }
 
+function xoaNhanVien() {
 
 }
+
+
+
+
+
+
+
+
+
+function capNhatNhanVien() {
+    // láy dữ liêụ từ ng dùng về:
+    var nhanVien = new NhanVien();
+    for (var i = 0; i < arrIdInput.length; i++) {
+        var capNhat = document.getElementById(arrIdInput[i]).value;
+        nhanVien[arrIdInput[i]] = value;
+    }
+    console.log(nhanVien);
+    // tìm tứoi vị trsi nhân viên cũ đang đứng
+    for (var z = 0; z < arrNhanVien.length; z++) {
+        if (nhanVien.tknv == arrNhanVien[z].tknv) {
+            arrNhanVien[z] = nhanVien;
+            document.getElementById("tknv").readOnly = false;
+            // cập nhạt xong, clear hết dữ liẹu
+            document.getElementById('tableDanhSach').reset();
+
+        }
+    }
+
+}
+document.getElementById('btnCapNhat').onclick = capNhatNhanVien;
+
 

@@ -1,4 +1,4 @@
-function NhanVien(tknv, name, email, password, datepicker, luongCB, chucvu, gioLam) {
+function NhanVien() {
     this.tknv = "";
     this.name = "";
     this.email = "";
@@ -35,10 +35,3 @@ function NhanVien(tknv, name, email, password, datepicker, luongCB, chucvu, gioL
         return xepLoai;
     }
 }
-
-
-//
-
-
-// xây dựng tổng lương và xếp loại nhân viên
-
