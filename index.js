@@ -1,82 +1,99 @@
+var arrIdInput = [
+    "tknv", "name", "email", "password", "datepicker", "luongCB", "chucvu", "gioLam",
+];
 
-// var arrIdInput = [
-//     "tknv", "name", "email", "password", "datepicker", "luongCB", "chucvu", "gioLam",
-// ];
-// // tạo 1 mảng ở ngoài để chứa
+var arrNhanVien = [];
 
-// var arrNhanVien = [];
-// // phương thức thêm nhân viên
-// function themNhanVien(event) {
+function themNhanVien(event) {
+    event.preventDefault();
+    console.log('submit');
 
-//     event.preventDefault();
-//     console.log('submit');
-//     var nhanVien = new NhanVien();
-//     for (var i = 0; i < arrIdInput.length; i++) {
-//         var value = document.getElementById(arrIdInput[i]).value;
-//         nhanVien[arrIdInput[i]] = value;
+    var nhanVien = new NhanVien();
+    for (var i = 0; i < arrIdInput.length; i++) {
+        var value = document.getElementById(arrIdInput[i]).value;
+        nhanVien[arrIdInput[i]] = value;
+    }
+    console.log(nhanVien);
+    var tongLuong = nhanVien.tinhLuong();
+    var xepLoai = nhanVien.xepLoaiNhanVien();
+    arrNhanVien.push(nhanVien);
+    console.log(arrNhanVien);
+    hienThiDanhSachNhanVien(arrNhanVien);
+}
 
-//     }
-//     console.log(nhanVien);
-//     // ta tính lương và xếp loaij
-//     var tongLuong = this.tinhLuong();
-//     var xepLoai = this.xepLoaiNhanVien();
-//     // them thông tin vào mảng nhân viên
-//     arrNhanVien.push(nhanVien);
-//     console.log(arrNhanVien);
-//     // cập nhật lại danh sách sinh viên
+document.getElementById('btnThemNV').onclick = themNhanVien;
 
-//     hienThiDanhSachNhanVien()
+function hienThiDanhSachNhanVien(arrNhanVien) {
+    var content = "";
+    for (var i = 0; i < arrNhanVien.length; i++) {
+        var nhanVien = arrNhanVien[i];
+        content += `
+            <tr>
+        
+                <td>${nhanVien.tknv}</td>
+                <td>${nhanVien.name}</td>
+                <td>${nhanVien.email}</td>
+                <td>${nhanVien.datepicker}</td>
+                <td>${nhanVien.chucvu}</td>
+                <td>${nhanVien.luongCB}</td>
+                <td>${nhanVien.xepLoaiNhanVien()}</td>
+         <button class="btn btn-warning" onclick="xoaNhanVien('${nhanVien.tknv}')" >Xoá nhân viên</button>   						
+            </tr>
+        `;
+    }
+    document.getElementById("tableDanhSach").innerHTML = content;
+}
 
-//     // đóg form thêm mới 
-// }
-// document.getElementById('btnThemNV').onclick = themNhanVien
+function xoaNhanVien(tknv) {
+    console.log(tknv);
+    // tạo ra 1 biêsn index
+    var index = -1;
+    for (var i = 0; i < arrNhanVien.length; i++) {
+        if (arrNhanVien[i].tknv === tknv) {
+            index = i;
+            // thoát khỏi vòng lặp
 
-// function hienThiDanhSachNhanVien(arrNhanVien) {
-//     var content = "";
-//     for (var i = 0; i < arrNhanVien.length; i++) {
-//         var nv = arrNhanVien[i];
-//         content += `
-//             <tr>
-//             <td></td>
-//                 <td>${nhanVien.tknv}</td>
-//                 <td>${nhanVien.name}</td>
-//                 <td>${nhanVien.email}</td>
-//                 <td>${nhanVien.datepicker}</td>
-
-//                 <td>${nhanVien.chucvu}</td>
-//                 <td>${nhanVien.tinhLuong()}</td>
-
-//                 <td>${nhanVien.xepLoaiNhanVien()}</td>
-            
-//             </tr>
-//         `;
-//     }
-//     document.getElementById("tableDanhSach").innerHTML = content;
-// }
-
-
-// function capNhatNhanVien() {
-//     // láy dữ liêụ từ ng dùng về:
-//     var nhanVien = new NhanVien();
-//     for (var i = 0; i < arrIdInput.length; i++) {
-//         var capNhat = document.getElementById(arrIdInput[i]).value;
-//         nhanVien[arrIdInput[i]] = value;
-//     }
-//     console.log(nhanVien);
-//     // tìm tới vị trí nhân viên cũ đang đứng
-//     for (var z = 0; z < arrNhanVien.length; z++) {
-//         if (nhanVien.tknv == arrNhanVien[z].tknv) {
-//             arrNhanVien[z] = nhanVien;
-//             document.getElementById("tknv").readOnly = false;
-//             // cập nhạt xong, clear hết dữ liẹu
-//             document.getElementById('tableDanhSach').reset();
-//             document.getElementById('btnCapNhat').style.display = "none";
+        }
+    }
+    arrNhanVien.splice(index, 1);
+    hienThiDanhSachNhanVien(arrNhanVien);
+}
 
 
-//         }
-//     }
+function capNhatNhanVien() {
+    // tạo 1 đối tượng nhân viên mới
+    var nhanVien = new NhanVien();
+    // Lặp qua các trường nhập liệu và gán giá trị vào thuộc tính tương ứng của đối tượng nhân viên
+    for (var i = 0; i < arrIdInput.length; i++) {
+        var idInput = arrIdInput[i];
+        var value = document.getElementById(idInput).value.trim();
+        // sử dụng trim để loại bỏ khoảng trắng đầu cuối
+        nhanVien[idInput] = value;
+    }
+    console.log(nhanVien);
+    // Tìm nhân viên trong mảng arrNhanVien và cập nhật thông tin
+    var index = arrNhanVien.findIndex(function (nhanVien) {
+        return nhanVien.tknv === nhanVien.tknv;
+    });
+    if (index !== -1) {
+        arrNhanVien[index] = nhanVien;
 
-// }
-// document.getElementById('btnCapNhat').onclick = capNhatNhanVien;
+        // Mở lại input tknv
+        document.getElementById("tknv").readOnly = false;
+
+        // Đặt lại giá trị của các ô nhập liệu
+        for (var i = 0; i < arrIdInput.length; i++) {
+            document.getElementById(arrIdInput[i]).value = "";
+        }
+
+        // Hiển thị lại danh sách nhân viên
+        hienThiDanhSachNhanVien(arrNhanVien);
+    } else {
+        alert("Không tìm thấy nhân viên có tài khoản " + nhanVien.tknv);
+    }
+}
+
+document.getElementById('btnCapNhat').onclick = capNhatNhanVien;
+
 
 
