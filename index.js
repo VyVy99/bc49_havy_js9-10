@@ -153,5 +153,39 @@ function capNhatNhanVien() {
 
 document.getElementById('btnCapNhat').onclick = capNhatNhanVien;
 
+// validation: lọc
+// validation : kiemr tra dữ liệu rỗng
+/**tạo ra 1 biến check dữ liệu, nếu như  khi chạy thuộc tính vòng lặp có gia trị thì sẽ là true, r dùng valid để xem có nen them sinhVien vào mảng hay ko */
+var valid = true;
+
+valid =
+    valid &&
+kiemTraDuLieuRong(arrIdInput, arrnoItInput, nhanVien) &&
+kiemTraEmail(nhanVien["email"], "notiEmail");
 
 
+// tạo biên lưu chuỗi email
+// var regexEmail =
+//   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// console.log(valid);
+// if (sinhVien["txtEmail"] !== "") {
+//   if (!regexEmail.test(sinhVien["txtEmail"])) {
+//     document.getElementById("notiEmail").innerHTML =
+//       "định dạng email ko đúng";
+//     valid = valid && false;
+//   } else {
+//     // đàu tiên gán gia giá vào cho biến valid
+//     document.getElementById("notiEmail").innerHTML = "";
+//     valid = valid && true;
+//   }
+// }
+
+// valid(trusthy && falsy)
+// dùng valid để check nếu còn lỗi thì sẽ là false kop dc thêm dữ liệu vao còn true thì dc
+if (valid) {
+    arrNhanVien.push(nhanVien);
+    luuDuLieuLoCal();
+    renderGiaoDien();
+
+    document.getElementById("formNhanVien").reset();
+}
