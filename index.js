@@ -1,3 +1,6 @@
+var arrnoItInput = ['notiTaiKhoan', 'notiName', 'notiEmail', 'notiMatKhau', 'notiNgayLam', 'notiLuongCb', 'notiChucVu', 'notiGioLam', ]
+
+
 var arrIdInput = [
     "tknv", "name", "email", "password", "datepicker", "luongCB", "chucvu", "gioLam",
 ];
