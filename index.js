@@ -1,66 +1,8 @@
 var arrIdInput = [
     "tknv", "name", "email", "password", "datepicker", "luongCB", "chucvu", "gioLam",
 ];
-
-var arrNhanVien = [];
-
-function themNhanVien() {
-    event.preventDefault();
-    // tạo ra một đối tượng nhanVien từ lớp đối tượng NhanVien
-    var nhanVien = new NhanVien();
-    for (var i = 0; i < arrIdInput.length; i++) {
-        var inputId = arrIdInput[i];
-        var value = document.getElementById(inputId).value;
-        // sau đó ta gán giá trị này vào thuộc tính của đối tượng nhanVien
-        nhanVien[inputId] = value;
-    }
-
-    // tính lương và xếp loại
-    var tongLuong = nhanVien.tinhLuong();
-    var xepLoai = nhanVien.xepLoaiNhanVien();
-
-    // thêm thông tin vào mảng nhân viên
-    arrNhanVien.push(nhanVien);
-
-    // cập nhật lại bảng danh sách nhân viên
-    hienThiDanhSachNhanVien(arrNhanVien);
-
-    // đóng form thêm mới
-    document.getElementById("btnDong").click();
-    console.log(arrNhanVien);
-}
-
-function hienThiDanhSachNhanVien(arrNhanVien) {
-    var content = "";
-    for (var i = 0; i < arrNhanVien.length; i++) {
-        var nv = arrNhanVien[i];
-        content += `
-            <tr>
-                <td>${nhanVien.tknv}</td>
-                <td>${nhanVien.name}</td>
-                <td>${nhanVien.email}</td>
-                <td>${nhanVien.password}</td>
-                <td>${nhanVien.datepicker}</td>
-                <td>${nhanVien.luongCB}</td>
-                <td>${nhanVien.chucvu}</td>
-                <td>${nhanVien.tinhLuong()}</td>
-                <td>${nhanVien.gioLam}</td>
-                <td>${nhanVien.xepLoaiNhanVien()}</td>
-                <td>
-                    <button class="btn btn-danger" onclick="xoaNhanVien('${nhanVien.tknv}')">Xóa</button>
-                    <button class="btn btn-primary" onclick="suaNhanVien('${nhanVien.tknv}')">Sửa</button>
-                </td>
-            </tr>
-        `;
-    }
-    document.getElementById("tableDanhSach").innerHTML = content;
-}
 var arrnoItInput = ['notiTaiKhoan', 'notiName', 'notiEmail', 'notiMatKhau', 'notiNgayLam', 'notiLuongCb', 'notiChucVu', 'notiGioLam',]
 
-
-var arrIdInput = [
-    "tknv", "name", "email", "password", "datepicker", "luongCB", "chucvu", "gioLam",
-];
 
 var arrNhanVien = [];
 
@@ -82,6 +24,7 @@ function themNhanVien(event) {
     console.log(arrNhanVien);
     // document.getElementById('formNhanVien').reset();
     hienThiDanhSachNhanVien(arrNhanVien);
+  
 }
 
 document.getElementById('btnThemNV').onclick = themNhanVien;
@@ -104,7 +47,8 @@ function hienThiDanhSachNhanVien(arrNhanVien) {
                 <td>${newNhanVien.chucvu}</td>
                 <td>${newNhanVien.luongCB}</td>
                 <td>${newNhanVien.xepLoaiNhanVien()}</td>
-         <button class="btn btn-warning" onclick="xoaNhanVien('${newNhanVien.tknv}')" >Xoá nhân viên</button>   						
+         <button class="btn btn-warning" onclick="xoaNhanVien('${newNhanVien.tknv}')" >Xoá nhân viên</button> 
+
             </tr>
         `;
     }
@@ -147,68 +91,72 @@ function layDuLieuLocal() {
 
 }
 layDuLieuLocal();
-function layThongTinNhanVien(tknv) {
-    // vòng lặp để lấy dc object thỏa mãn tknV
-    var nhanVien = {};
-    for (var i = 0; i < arrNhanVien.length; i++) {
-        if (arrNhanVien[i].tknv == tknv) {
-            nhanVien = arrNhanVien[i];
-        }
-    }
-    // lấy dữ liệu từi nhanvein và gán lên các input
-    for (var z = 0; z < arrIdInput.length; z++) {
-        document.getElementById(arrIdInput[z]).value = nhanVien[arrIdInput[z]];
-    }
-    // chỉnh thuộc tinh readonly cho input tknv chặn ng dùng sửa
-    document.getElementById("tknv").readOnly = true;
-    document.getElementById("btnCapNhat").style.display = "inline-block";
-}
-
-
-
 
 
 function capNhatNhanVien() {
-    // tạo 1 đối tượng nhân viên mới
     var nhanVien = new NhanVien();
-    // Lặp qua các trường nhập liệu và gán giá trị vào thuộc tính tương ứng của đối tượng nhân viên
     for (var i = 0; i < arrIdInput.length; i++) {
         var idInput = arrIdInput[i];
-        var value = document.getElementById(idInput).value.trim();
-        // sử dụng trim để loại bỏ khoảng trắng đầu cuối
-        nhanVien[idInput] = value;
+        var value = document.getElementById(idInput).value;
+        nhanVien.idInput = value;
     }
-    console.log(nhanVien);
-    // Tìm nhân viên trong mảng arrNhanVien và cập nhật thông tin
-    var index = arrNhanVien.findIndex(function (nhanVien) {
-        return nhanVien.tknv === nhanVien.tknv;
-    });
-    if (index !== -1) {
-        arrNhanVien[index] = nhanVien;
 
-        // Mở lại input tknv
-        document.getElementById("tknv").readOnly = false;
+    for (var z = 0; z < arrNhanVien.length; z++) {
+        if (nhanVien.tknv == arrNhanVien[z].tknv) {
+            arrNhanVien[z] = nhanVien
+            // mow lai input masv
+            document.getElementById("tknv").readOnly = true;
+            // cap nhat xong clear het du lieu input
+        
+            document.getElementById("formNhanVien").reset()
+            // goi toi render de cap nhat lai du lieu ms nhat tren giao dien
+            luuDuLieuLocal()
+            hienThiDanhSachNhanVien();
 
-        // Đặt lại giá trị của các ô nhập liệu
-        for (var i = 0; i < arrIdInput.length; i++) {
-            document.getElementById(arrIdInput[i]).value = "";
+
         }
-
-        // Hiển thị lại danh sách nhân viên
-        luuDuLieuLocal();
-        hienThiDanhSachNhanVien(arrNhanVien);
-
-    } else {
-        alert("Không tìm thấy nhân viên có tài khoản " + nhanVien.tknv);
     }
-
-
-
 }
 
-
-
 document.getElementById('btnCapNhat').onclick = capNhatNhanVien;
+
+
+
+
+
+// function capNhatSinhVien() {
+//     // lay du lieu tu ng dung ve
+//     var sinhVien = new SinhVien();
+//     for (var i = 0; i < arrIdInput; i++) {
+//         var value = document.getElementById(arrIdInput[i]).value
+
+//         sinhVien[arrIdInput[i]] = value
+//     }
+//     console.log(sinhVien);
+//     // tim kiem toi vi tri du lieu sv cu dang dung
+//     for (var z = 0; z < arrSinhVien.length; z++) {
+//         if (sinhVien.txtMaSV == arrSinhVien[z].txtMaSV) {
+//             arrSinhVien[z] = sinhVien
+//             // mow lai input masv
+//             document.getElementById("txtMaSV").readOnly = false;
+//             // cap nhat xong clear het du lieu input
+//             document.getElementById("formSinhVien").reset()
+//             // goi toi render de cap nhat lai du lieu ms nhat tren giao dien
+//             luuDuLieuLocal()
+//             renderGiaoDien()
+//             document.getElementById('btnCapNhat').style.display = 'none';
+
+//         }
+//     }
+
+// }
+
+
+
+
+
+
+
 
 // validation: lọc
 // validation : kiemr tra dữ liệu rỗng
@@ -246,3 +194,4 @@ if (valid) {
 
     document.getElementById("formNhanVien").reset();
 }
+
