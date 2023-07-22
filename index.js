@@ -1,4 +1,4 @@
-var arrnoItInput = ['notiTaiKhoan', 'notiName', 'notiEmail', 'notiMatKhau', 'notiNgayLam', 'notiLuongCb', 'notiChucVu', 'notiGioLam', ]
+var arrnoItInput = ['notiTaiKhoan', 'notiName', 'notiEmail', 'notiMatKhau', 'notiNgayLam', 'notiLuongCb', 'notiChucVu', 'notiGioLam',]
 
 
 var arrIdInput = [
@@ -21,7 +21,7 @@ function themNhanVien(event) {
     var xepLoai = nhanVien.xepLoaiNhanVien();
     arrNhanVien.push(nhanVien);
 
-       luuDuLieuLocal();
+    luuDuLieuLocal();
     console.log(arrNhanVien);
     // document.getElementById('formNhanVien').reset();
     hienThiDanhSachNhanVien(arrNhanVien);
@@ -34,8 +34,8 @@ function hienThiDanhSachNhanVien(arrNhanVien) {
     for (var i = 0; i < arrNhanVien.length; i++) {
         var nhanVien = arrNhanVien[i];
 
-var newNhanVien = new NhanVien();
-Object.assign(newNhanVien, nhanVien);
+        var newNhanVien = new NhanVien();
+        Object.assign(newNhanVien, nhanVien);
 
         content += `
             <tr>
@@ -160,8 +160,8 @@ var valid = true;
 
 valid =
     valid &&
-kiemTraDuLieuRong(arrIdInput, arrnoItInput, nhanVien) &&
-kiemTraEmail(nhanVien["email"], "notiEmail");
+    kiemTraDuLieuRong(arrIdInput, arrnoItInput, nhanVien) &&
+    kiemTraEmail(nhanVien["email"], "notiEmail");
 
 
 // tạo biên lưu chuỗi email
@@ -185,7 +185,7 @@ kiemTraEmail(nhanVien["email"], "notiEmail");
 if (valid) {
     arrNhanVien.push(nhanVien);
     luuDuLieuLoCal();
-    renderGiaoDien();
+    renderGiaoDigiten();
 
     document.getElementById("formNhanVien").reset();
 }
